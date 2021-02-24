@@ -1,63 +1,80 @@
-import React from 'react';
-import { Grid, Paper } from '@material-ui/core'
+// import React from 'react';
+// import { Grid, Paper } from '@material-ui/core';
+// import { withStyles } from '@material-ui/core/styles';
 
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+// import { connect } from "react-redux";
 
-class Board extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
+// import Square from './Square';
 
-  componentDidMount() {
-
-    
-  }
-
-  handleClick() {
-
-  }
-
-  render() {
-    return (
-        <div>
-          <p>Hello World!</p>
-    
-          <Grid container justify="center" spacing={3}>
-              {[0, 1, 2].map((value) => (
-                <Grid key={value} >
-                  {value}
-                </Grid>
-              ))}
-          </Grid>
-        </div>
-      );
-  }
-  
-}
-
-const mapStateToProps = (state)=> {
-  return state
-};
-
-// const mapDispatchToProps = (dispatch) => {
+// // Material UI Styling
+// function styling(theme) {
 //     return {
-//       bootstrap: () => {
-//         dispatch(loadProducts());
-//       },
-//       addNewCoffee(quantity, userId, coffeeId) {
-//         dispatch(addNewCoffee(quantity, userId, coffeeId));
-//       },
-//       updateStock(stock, coffeeId) {
-//         dispatch(updatedStock(stock, coffeeId));
-//       },
-//       putInGuestCart(obj) {
-//         dispatch(putInGuestCart(obj));
-//       },
-//     };
-//   };
+//     // what is square??????
+//         square: {
+//             height: 100,
+//             width: 100,
+//             lineHeight: '100px',
+//             fontSize: '48px'
+//         }
+//     }
+
+
+// }
+
+// class Board extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.handleClick = this.handleClick.bind(this);
+//   }
+
+//   componentDidMount() {
+
+    
+//   }
+
+//   handleClick() {
+
+//   }
+
+//   render() {
+//       // let { board } = this.props;
+//       let board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+//     return (
+//         <div>
+//             <p> hello world! </p>
+//           <Grid container>
+//                {board.map((square, boardIndex) => {
+//                    <Grid key={boardIndex} item xs={12} spacing = {3}>square</Grid>
+
+//                 })}       
+//           </Grid>
+//         </div>
+//       );
+//   }
   
-export default connect(mapStateToProps, mapDispatchToProps)(Board);
+// }
+
+// const mapStateToProps = (state)=> {
+//   return state
+// };
+
+// // const mapDispatchToProps = (dispatch) => {
+// //     return {
+// //       bootstrap: () => {
+// //         dispatch(loadProducts());
+// //       },
+// //       addNewCoffee(quantity, userId, coffeeId) {
+// //         dispatch(addNewCoffee(quantity, userId, coffeeId));
+// //       },
+// //       updateStock(stock, coffeeId) {
+// //         dispatch(updatedStock(stock, coffeeId));
+// //       },
+// //       putInGuestCart(obj) {
+// //         dispatch(putInGuestCart(obj));
+// //       },
+// //     };
+// //   };
+  
+// export default Board;
 
 

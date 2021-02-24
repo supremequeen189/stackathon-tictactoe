@@ -1,7 +1,7 @@
 
 const RESET_GAME = 'RESET_GAME';
 const ADD_MOVE = 'ADD_MOVE';
-const SET_CURRENT_PLAYER = 'SET_CURRENT_PLAYER';
+const SET_NEXT_PLAYER = 'SET_NEXT_PLAYER';
 const SET_WINNER = 'SET_WINNER';
 
 const emptyBoard = ["","","","","","","","",""];
@@ -16,28 +16,28 @@ const winningConditions = [
     [2,4,6]
 ]
 
-const resetGame = () => {
+export const resetGame = () => {
     return {
         type: RESET_GAME,
         emptyBoard
     }
 }
 
-const addMove = (player, boardIndex) => {
+export const addMove = (player, board, playerXPositions, playerOPositions) => {
     return {
         type: ADD_MOVE,
-        payload: {player, boardIndex}
+        payload: {player, board, playerXPositions, playerOPositions}
     }
 }
 
-const setCurrentPlayer = (player) => {
+export const setNextPlayer = (player) => {
     return {
-        type: SET_CURRENT_PLAYER,
+        type: SET_NEXT_PLAYER,
         player
     }
 }
 
-const setWinner = (winner) => {
+export const setWinner = (winner) => {
     return {
         type: SET_WINNER,
         winner
@@ -45,8 +45,8 @@ const setWinner = (winner) => {
 }
 
 
-// Thunk
-export const checkWinner = (currentPlayer, playerXPositions, playerOPositions) => {
+// Thunks
+export const _checkWinner = (currentPlayer, playerXPositions, playerOPositions) => (dispatch) => {
     let gameIsWon = false;
     let currentPlayerPositions = currentPlayer === 'X' ? playerXPositions : playerOPositions;
 
@@ -54,10 +54,31 @@ export const checkWinner = (currentPlayer, playerXPositions, playerOPositions) =
         gameIsWon = winningConditions[i].every((element) => { 
             return currentPlayerPositions.indexOf(element) !== -1 
         })
-        if (gameIsWon) return true;
+        if (gameIsWon) {
+            dispatch(setWinner(currentPlayer))
+        };
     }
-    return false;
 };
+
+export const playTurn = (board, currentPlayer, boardIndex, playerXPositions, playerOPositions) => (dispatch) => {
+    // makeMove: (currentPlayer, boardIndex) => dispatch(addMove(currentPlayer, boardIndex)),
+     // make a copy of the board and update the appropriate value
+        let newBoard = board;
+     // update the board's value with the latest move
+        newBoard[boardIndex] = currentPlayer
+
+        if (currentPlayer === 'X') {
+            playerXPositions.push(boardIndex);
+        } else {
+            playerOPositions.push(boardIndex);
+        }
+        
+        //switch player
+        let nextPlayer = currentPlayer === 'X' ? 'O' : 'X'
+
+        dispatch(addMove(currentPlayer, newBoard, playerXPositions, playerOPositions));
+        dispatch(setNextPlayer(nextPlayer))
+}
 
 
 let initialState = {
@@ -73,20 +94,17 @@ export default function(state = initialState, action) {
     switch (action.type) {
         case RESET_GAME:
             return state;
-        case SET_CURRENT_PLAYER:
-            let newState = {...state};
-            newState.currentPlayer = action.player
-            return newState;    
+        case SET_NEXT_PLAYER: 
+            return {...state,
+                    currentPlayer: action.player
+                    }
         case ADD_MOVE:
-            let newState = {...state}
-            newState.board[action.payload.boardIndex] = action.payload.player;
-
-            if (action.payload.player === 'X') {
-                newState.playerXPositions.push(action.payload.boardIndex);
-            } else {
-                newState.playerOPositions.push(action.payload.boardIndex)
-            }
-            return newState;       
+            return {...state, 
+                    currentPlayer: action.player,
+                    board: action.board, 
+                    playerXPositions: action.playerXPositions, 
+                    playerOPositions: action.playerOPositions
+                    }    
         case SET_WINNER: 
             return action.winner;
         default:
