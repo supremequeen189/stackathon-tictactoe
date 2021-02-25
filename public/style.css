@@ -1,0 +1,28 @@
+h1 {
+    display: flex;
+}
+#second-row {
+    position: relative;
+}
+#third-row {
+    position: relative;
+}
+.notification-container {
+    background-color: aliceblue;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 500px;
+    max-width: calc(100% - 30px);
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    color: #000;
+    font-size: 16px;
+    padding: 15px 20px;
+    line-height: 20px;
+    margin-bottom: 15px;
+    animation: grow 0.5s ease-in forwards;
+}
+.notification-container-empty {
+    opacity: 0;
+}
