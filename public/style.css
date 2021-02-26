@@ -17,17 +17,23 @@ div .grid-row {
 #third-row {
     position: relative;
 }
-div .coolbuttonone {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
+.coolbuttonone {
+  margin: 10px;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 500px;
 } 
-div .coolbuttontwo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
+.coolbuttontwo {
+  margin: 0;
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 500px;
 }
 .notification-container {
     background-color: aliceblue;

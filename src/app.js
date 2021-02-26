@@ -4,6 +4,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { _checkWinner, playTurn, resetGame, playComputerTurn, setComputerOpponent } from './store/game'
 import { connect } from 'react-redux';
 
+
 //Styling Fun
 import Confetti from 'react-confetti'
 import Snowfall from 'react-snowfall'
@@ -42,7 +43,7 @@ class App extends React.Component {
 
   makeComputerMove(board, playerXPositions, playerOPositions, winner) {
     if (this.props.winner === "")  {
-      this.props.computerMove(board, playerXPositions, playerOPositions, winner);
+      setTimeout(() => (this.props.computerMove(board, playerXPositions, playerOPositions, winner), 5000));
       this.props.checkWinner("O", playerXPositions, playerOPositions, winner);
     }
   }
@@ -81,7 +82,7 @@ class App extends React.Component {
       case 'X':
         return 'clear' // X
       case 'O':
-        return 'radio_button_unchecked' // O
+        return 'cloud_queue' // O
       default:
         return '';
     }
@@ -174,15 +175,16 @@ class App extends React.Component {
                 ))
               }
             </Grid>
+            <br />
             </div>
             <br />
 
-            <div className = "coolbuttonone">
-              <Button variant="contained" onClick={() => handleReset()}>Reset Game</Button>
+            <div className = "button">
+              <Button className = "coolbuttonone" variant="contained" onClick={() => handleReset()}>Reset Game</Button>
             </div>
               <br />
             <div className = "coolbuttontwo">
-              <Button variant="contained" onClick={() => handleComputerMode()}>Start Game with Computer</Button>
+              <Button className = "coolbuttontwo" variant="contained" onClick={() => handleComputerMode()}>Start Game with Computer</Button>
             </div>
 
               {(winner === "X" || (winner === "O" && opponentMode === "human" )) ?
