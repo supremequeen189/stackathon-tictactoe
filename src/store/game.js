@@ -40,7 +40,6 @@ export const setWinner = (winner) => {
 }
 // Thunks
 export const _checkWinner = (currentPlayer, playerXPositions, playerOPositions) => (dispatch) => {
-    console.log("current player: ", currentPlayer);
     let gameIsWon = false;
     let currentPlayerPositions = currentPlayer === 'X' ? playerXPositions : playerOPositions;
     for (let i = 0; i < winningConditions.length; i++) {

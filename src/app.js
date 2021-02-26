@@ -21,13 +21,15 @@ class App extends React.Component {
     this.handleReset = this.handleReset.bind(this);
   }
   handleClick(board, currentPlayer, boardIndex, playerXPositions, playerOPositions, winner) {
-    this.props.makeMove(board, this.props.currentPlayer, boardIndex, playerXPositions, playerOPositions);
-    this.props.checkWinner(currentPlayer, playerXPositions, playerOPositions);
-    console.log("props", this.props);
+    //check to make sure that that board space isn't already occupied
+    if (typeof board[boardIndex] === 'number') {
+      this.props.makeMove(board, this.props.currentPlayer, boardIndex, playerXPositions, playerOPositions);
+      this.props.checkWinner(this.props.currentPlayer, playerXPositions, playerOPositions);
+    }
+    
+
   }
   handleReset() {
-    debugger;
-    console.log("props", this.props);
     this.props.newGame();
     this.setState({
       game: {
@@ -53,9 +55,9 @@ class App extends React.Component {
     if (this.state === null)
       return <div></div>
     else {
-      debugger;
       let { board, currentPlayer, playerXPositions, playerOPositions} = this.state.game;
       let winner = this.props.winner;
+      console.log('props front end', this.props);
       const { handleClick, showPlayerIcon, handleReset} = this;
       return (
           <div>
@@ -124,7 +126,7 @@ class App extends React.Component {
               }
             </Grid>
             <Button variant="contained" onClick={() => handleReset()}>Reset Game</Button>
-              {(winner !== "") ?
+              {(winner === "X" || winner === "O") ?
                   NotificationManager.success(
                       `Player ${winner} has triumphed!`,
                       "Congratulations, we have a winner!",
@@ -138,7 +140,6 @@ class App extends React.Component {
   }
 };
 function mapStateToProps(state) {
-  debugger;
     return {
       board: state.game.board,
       currentPlayer: state.game.currentPlayer,
