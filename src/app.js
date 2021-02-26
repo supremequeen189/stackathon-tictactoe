@@ -43,7 +43,7 @@ class App extends React.Component {
 
   makeComputerMove(board, playerXPositions, playerOPositions, winner) {
     if (this.props.winner === "")  {
-      setTimeout(() => (this.props.computerMove(board, playerXPositions, playerOPositions, winner), 5000));
+      this.props.computerMove(board, playerXPositions, playerOPositions, winner);
       this.props.checkWinner("O", playerXPositions, playerOPositions, winner);
     }
   }
