@@ -1,3 +1,4 @@
+const SET_COMPUTER_OPPONENT = 'SET_COMPUTER_OPPONENT';
 const RESET_GAME = 'RESET_GAME';
 const ADD_MOVE = 'ADD_MOVE';
 const SET_NEXT_PLAYER = 'SET_NEXT_PLAYER';
@@ -13,8 +14,17 @@ const winningConditions = [
     [0,4,8],
     [2,4,6]
 ]
+const computer = "computer";
+const human = "human"
+
+export const setComputerOpponent = () => {
+    return {
+        type: SET_COMPUTER_OPPONENT,
+        computer
+    }
+}
+
 export const resetGame = () => {
-    console.log("RESETTING GAME")
     return {
         type: RESET_GAME,
         emptyBoard
@@ -38,6 +48,7 @@ export const setWinner = (winner) => {
         payload: {winner}
     }
 }
+
 // Thunks
 export const _checkWinner = (currentPlayer, playerXPositions, playerOPositions) => (dispatch) => {
     let gameIsWon = false;
@@ -91,6 +102,7 @@ export const playComputerTurn = (board, playerXPositions, playerOPositions, winn
 }
 
 let initialState = {
+    opponentMode: human,
     board: emptyBoard,
     currentPlayer: 'X',
     playerXPositions: [],
@@ -100,6 +112,10 @@ let initialState = {
 // Reducer
 export default function(state = initialState, action) {
     switch (action.type) {
+        case SET_COMPUTER_OPPONENT:
+            return {...state,
+                    opponentMode: computer
+                    }
         case RESET_GAME:
             return initialState;
         case SET_NEXT_PLAYER:

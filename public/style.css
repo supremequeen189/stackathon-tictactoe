@@ -1,5 +1,15 @@
-h1 {
+/* div .app{
     display: flex;
+    flex-direction: column;
+} */
+h1 {
+    align-items: center;
+    text-align: center;
+}
+div .grid-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #second-row {
     position: relative;
@@ -7,14 +17,26 @@ h1 {
 #third-row {
     position: relative;
 }
+div .coolbuttonone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+} 
+div .coolbuttontwo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
 .notification-container {
     background-color: aliceblue;
     position: fixed;
     top: 15px;
     right: 15px;
-    width: 500px;
+    width: 400px;
     max-width: calc(100% - 30px);
-    border-radius: 5px;
+    border-radius: 0px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     color: #000;
     font-size: 16px;
