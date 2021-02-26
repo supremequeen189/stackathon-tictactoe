@@ -52,6 +52,8 @@ export const _checkWinner = (currentPlayer, playerXPositions, playerOPositions) 
         };
     }
 };
+
+//thunk for if we have a human or two people
 export const playTurn = (board, currentPlayer, boardIndex, playerXPositions, playerOPositions) => (dispatch) => {
     // makeMove: (currentPlayer, boardIndex) => dispatch(addMove(currentPlayer, boardIndex)),
      // make a copy of the board and update the appropriate value
@@ -68,6 +70,26 @@ export const playTurn = (board, currentPlayer, boardIndex, playerXPositions, pla
         dispatch(addMove(nextPlayer, newBoard, playerXPositions, playerOPositions));
        // dispatch(setNextPlayer(nextPlayer))
 }
+
+//thunk for if computer plays turn
+export const playComputerTurn = (board, playerXPositions, playerOPositions, winner) => (dispatch) => {
+    if (winner !== "") return;
+     //generate random move from computer
+        let openSpaces = board.filter((x) => { return typeof x === 'number' });
+        let randomSpace = Math.floor(Math.random() * openSpaces.length);
+        let computerMove = openSpaces[ randomSpace ];
+
+     //push computer move to playerOPositions 
+        playerOPositions.push(computerMove);
+    
+    //update computer's move to the board
+        let newBoard = board;
+        newBoard[computerMove] = 'O';
+
+        // switch player
+        dispatch(addMove('X', newBoard, playerXPositions, playerOPositions));
+}
+
 let initialState = {
     board: emptyBoard,
     currentPlayer: 'X',

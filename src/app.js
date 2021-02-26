@@ -1,8 +1,7 @@
 import React from 'react';
-import { Grid, Paper, Icon, Box, Button } from '@material-ui/core'
+import { Grid, Icon, Box, Button } from '@material-ui/core'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-import { render } from 'react-dom';
-import { _checkWinner, playTurn, resetGame } from './store/game'
+import { _checkWinner, playTurn, resetGame, playComputerTurn } from './store/game'
 import { connect } from 'react-redux';
 class App extends React.Component {
   constructor (props) {
@@ -25,6 +24,14 @@ class App extends React.Component {
     if (typeof board[boardIndex] === 'number') {
       this.props.makeMove(board, this.props.currentPlayer, boardIndex, playerXPositions, playerOPositions);
       this.props.checkWinner(this.props.currentPlayer, playerXPositions, playerOPositions);
+      console.log('handleClick state 1', this.state.winner)
+
+      if (this.props.winner === "")  {
+        this.props.computerMove(board, playerXPositions, playerOPositions, winner);
+        this.props.checkWinner("O", playerXPositions, playerOPositions);
+        console.log('handleClick state 2', this.state.winner)
+      }
+      
     }
     
 
@@ -46,7 +53,7 @@ class App extends React.Component {
       case 'X':
         return 'clear' // X
       case 'O':
-        return 'panorama_fish_eye' // O
+        return 'radio_button_unchecked' // O
       default:
         return '';
     }
@@ -150,6 +157,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
+    computerMove: (board, playerXPositions, playerOPositions, winner) => dispatch(playComputerTurn(board, playerXPositions, playerOPositions, winner)),
     checkWinner: (currentPlayer, playerXPositions, playerOPositions) => dispatch(_checkWinner(currentPlayer, playerXPositions, playerOPositions)),
     makeMove: (board, currentPlayer, boardIndex, playerXPositions, playerOPositions) => dispatch(playTurn(board, currentPlayer, boardIndex, playerXPositions, playerOPositions)),
     newGame: () => dispatch(resetGame())
